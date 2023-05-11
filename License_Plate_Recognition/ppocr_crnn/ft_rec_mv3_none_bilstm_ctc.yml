@@ -1,0 +1,109 @@
+Global:
+  use_gpu: True
+  epoch_num: 200
+  log_smooth_window: 20
+  print_batch_step: 2
+  save_model_dir: /content/drive/My Drive/Colab Notebooks/Chapter 4/License_Plate_Recognition/fine_tuned_ccpd/crnn
+  save_epoch_step: 50
+  eval_batch_step: [0, 20]
+  cal_metric_during_train: True
+  pretrained_model: /content/drive/My Drive/Colab Notebooks/Chapter 4/License_Plate_Recognition/ppocr_crnn/rec_mv3_none_bilstm_ctc_v2.0_train/best_accuracy
+  checkpoints:
+  save_inference_dir:
+  use_visualdl: False
+  infer_img:
+  # for data or label process
+  character_dict_path: /content/drive/My Drive/Colab Notebooks/Chapter 4/License_Plate_Recognition/en_dict.txt
+  max_text_length: 6
+  infer_mode: False
+  use_space_char: False
+  save_res_path:
+
+Optimizer:
+  name: Adam
+  beta1: 0.9
+  beta2: 0.999
+  lr:
+    learning_rate: 0.0005
+  regularizer:
+    name: 'L2'
+    factor: 0
+
+Architecture:
+  model_type: rec
+  algorithm: CRNN
+  Transform:
+  Backbone:
+    name: MobileNetV3
+    scale: 0.5
+    model_name: large
+  Neck:
+    name: SequenceEncoder
+    encoder_type: rnn
+    hidden_size: 96
+  Head:
+    name: CTCHead
+    fc_decay: 0
+
+Loss:
+  name: CTCLoss
+
+PostProcess:
+  name: CTCLabelDecode
+
+Metric:
+  name: RecMetric
+  main_indicator: acc
+
+Train:
+  dataset:
+    name: SimpleDataSet
+    data_dir: /content/drive/My Drive/CCPD2019/train_crop
+    label_file_list:
+      - /content/drive/My Drive/CCPD2019/train_rec.txt
+    transforms:
+    - DecodeImage:
+        img_mode: BGR
+        channel_first: false
+    - CTCLabelEncode: null
+    - RecResizeImg:
+        image_shape:
+        - 3
+        - 32
+        - 100
+    - KeepKeys:
+        keep_keys:
+        - image
+        - label
+        - length
+  loader:
+    shuffle: false
+    batch_size_per_card: 4
+    drop_last: true
+    num_workers: 8
+Eval:
+  dataset:
+    name: SimpleDataSet
+    data_dir: /content/drive/My Drive/CCPD2019/val_crop
+    label_file_list:
+      - /content/drive/My Drive/CCPD2019/val_rec.txt
+    transforms:
+    - DecodeImage:
+        img_mode: BGR
+        channel_first: false
+    - CTCLabelEncode: null
+    - RecResizeImg:
+        image_shape:
+        - 3
+        - 32
+        - 100
+    - KeepKeys:
+        keep_keys:
+        - image
+        - label
+        - length
+  loader:
+    shuffle: false
+    drop_last: false
+    batch_size_per_card: 4
+    num_workers: 4
