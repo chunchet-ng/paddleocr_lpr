@@ -1,14 +1,32 @@
 from collections import namedtuple
 import numpy as np
 import Polygon as plg
+from typing import Dict, List
 
 
-def evaluation(gt_dict, det_dict, eval_config):
-    """
-    Method evaluate_method: evaluate method and returns the results
-        Results. Dictionary with the following values:
-        - method (required)  Global method metrics. Ex: { 'Precision':0.8,'Recall':0.9 }
-        - samples (optional) Per sample metrics. Ex: {'sample1' : { 'Precision':0.8,'Recall':0.9 } , 'sample2' : { 'Precision':0.8,'Recall':0.9 }
+def evaluation(gt_dict: Dict[str, List], det_dict: Dict[str, List], eval_config: Dict):
+    """Evaluate the prediction results in terms of precision, recall and HMean.
+    The matching between ground-truth and predicted bounding box is based on the order in the list.
+    In other words, a ground-truth box will match with the first predicted bounding box with IoU > IOU_CONSTRAINT.
+
+    Args:
+        gt_dict (Dict[str, list]): A dictionary with image id as the key and a list of its ground-truth
+         bounding boxes as the value.
+         e.g.: gt_dict = {'img1': [[20, 20, 120, 60, "Hello"],
+                                 [200, 100, 300, 140, "World"],
+                                 [80, 180, 180, 220, "###"]]}
+        det_dict (Dict[str, list]): A dictionary with image id as the key and a list of its predicted
+         bounding boxes as the value.
+         e.g.: det_dict = {'img1': [[105, 40, 205, 80, "Hello"],
+                                  [210, 105, 310, 145, "World"],
+                                  [70, 170, 170, 210, "Random"]]}
+        eval_config (dict): A dictionary storing the evaluation configuration.
+         e.g.: eval_config = {"IOU_CONSTRAINT": 0.5,
+                            "AREA_PRECISION_CONSTRAINT": 0.5,
+                            "WORD_SPOTTING": True,
+                        }
+    Returns:
+        resDict (Dict): A dict storing overall and per-sample evaluation result
     """
 
     def rectangle_to_polygon(rect):
@@ -49,6 +67,7 @@ def evaluation(gt_dict, det_dict, eval_config):
     numGlobalCareGt = 0
     numGlobalCareDet = 0
 
+    # loop through each image id
     for gt_key, gt_val in gt_dict.items():
         recall = 0
         precision = 0
@@ -72,10 +91,12 @@ def evaluation(gt_dict, det_dict, eval_config):
 
         evaluationLog = ""
 
+        # loop through all bounding boxes in an image
         for n in range(len(gt_val)):
             list_entry = gt_val[n]
 
             if eval_config["WORD_SPOTTING"]:
+                # append ground-truth transcript
                 gtTrans.append(list_entry[-1])
 
             points = list_entry[:4]
@@ -98,6 +119,7 @@ def evaluation(gt_dict, det_dict, eval_config):
             )
         )
 
+        # if there's bounding box in prediction
         if gt_key in det_dict.keys():
             det_val = det_dict[gt_key]
             for n in range(len(det_val)):
@@ -110,7 +132,9 @@ def evaluation(gt_dict, det_dict, eval_config):
 
                 detPols.append(detPol)
                 detPolPoints.append(points)
+                # if there's 'dont care' boxes in ground-truth
                 if len(gtDontCarePolsNum) > 0:
+                    # we only care about the predicted bounding box
                     for dontCarePol in gtDontCarePolsNum:
                         dontCarePol = gtPols[dontCarePol]
                         intersected_area = get_intersection(dontCarePol, detPol)
