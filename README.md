@@ -5,7 +5,7 @@ Google Colab is used for this demonstration.
 # Code Structure/Explanation
 1.	[Setup on Google Colab](/Setup.ipynb)
 2.	[HMean Calculation for Text Detection & Spotting Tasks](/Detection_Evaluation/HMean.ipynb)
-3.	[Accuracy & Edit Distance Calculation for Text Recognition Task](/Detection_Evaluation/HMean.ipynb)
+3.	[Accuracy & Edit Distance Calculation for Text Recognition Task](/Recognition_Evaluation/Acc_Edit_Distance.ipynb)
 4.	[Data Exploration for the CCPD 2019 dataset](/License_Plate_Recognition/CCPD_2019.ipynb)
 5.	[Text Detection, Recognition & Spotting on the CCPD 2019 dataset](/License_Plate_Recognition/EAST_CRNN_LPR.ipynb)
 
