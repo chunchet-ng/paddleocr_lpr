@@ -17,4 +17,4 @@ Google Colab is used for this demonstration.
 # Credits
 1.	[CCPD 2019 dataset](https://github.com/detectRecog/CCPD)
 2.	[PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR)
-3.  Huge thanks to @nwjun for making the notebooks better and provide valuable feedbacks to this demo! 💪😇👍
+3.  Huge thanks to [@nwjun](https://github.com/nwjun) for making the notebooks better and provide valuable feedbacks to this demo! 💪😇👍
