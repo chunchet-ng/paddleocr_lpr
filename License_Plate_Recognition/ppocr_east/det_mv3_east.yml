@@ -8,7 +8,7 @@ Global:
   # evaluation is run every 5000 iterations after the 4000th iteration
   eval_batch_step: [4000, 5000]
   cal_metric_during_train: False
-  pretrained_model: /content/drive/My Drive/Colab Notebooks/Chapter 4/License_Plate_Recognition/ppocr_east/det_mv3_east_v2.0_train/best_accuracy
+  pretrained_model: /content/drive/My Drive/Colab Notebooks/Chapter 5/License_Plate_Recognition/ppocr_east/det_mv3_east_v2.0_train/best_accuracy
   checkpoints: 
   save_inference_dir:
   use_visualdl: False

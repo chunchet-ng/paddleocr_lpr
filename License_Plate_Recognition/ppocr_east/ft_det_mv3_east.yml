@@ -3,11 +3,11 @@ Global:
   epoch_num: 100
   log_smooth_window: 20
   print_batch_step: 2
-  save_model_dir: /content/drive/My Drive/Colab Notebooks/Chapter 4/License_Plate_Recognition/fine_tuned_ccpd/east
+  save_model_dir: /content/drive/My Drive/Colab Notebooks/Chapter 5/License_Plate_Recognition/fine_tuned_ccpd/east
   save_epoch_step: 50
   eval_batch_step: [0, 20]
   cal_metric_during_train: False
-  pretrained_model: /content/drive/My Drive/Colab Notebooks/Chapter 4/License_Plate_Recognition/ppocr_east/det_mv3_east_v2.0_train/best_accuracy
+  pretrained_model: /content/drive/My Drive/Colab Notebooks/Chapter 5/License_Plate_Recognition/ppocr_east/det_mv3_east_v2.0_train/best_accuracy
   checkpoints: 
   save_inference_dir: 
   use_visualdl: False
