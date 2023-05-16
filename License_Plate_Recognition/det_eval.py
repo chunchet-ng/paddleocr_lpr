@@ -181,8 +181,8 @@ def evaluation(gt_dict: Dict[str, List], det_dict: Dict[str, List], eval_config:
                                 detRectMat[detNum] = 1
                                 if eval_config["WORD_SPOTTING"]:
                                     correct = (
-                                        gtTrans[gtNum].upper()
-                                        == detTrans[detNum].upper()
+                                        str(gtTrans[gtNum]).upper()
+                                        == str(detTrans[detNum]).upper()
                                     )
                                     if correct:
                                         detMatched += 1
