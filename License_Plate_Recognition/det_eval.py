@@ -278,3 +278,64 @@ def evaluation(gt_dict: Dict[str, List], det_dict: Dict[str, List], eval_config:
     }
 
     return resDict
+
+
+def format_dict(resDict: Dict[str, List], img_id: str):
+    """Extract per-sample metric from the resDict based on img_id
+
+    Args:
+        resDict (Dict[str, List]): Result dictionary from `evaluation()`
+        img_id (str): Image to be investigated
+
+    Returns:
+        matched_str (str): Matched GT bounding box index and predicted bounding box index and the respective IoU
+        ignore_str (str): Ignored GT bounding box index and predicted bounding box index and the respective IoU
+        unmatched_str (str): Unmatch GT bounding box index and predicted bounding box index and the respective IoU
+    """
+    matched_str = ""
+    ignore_str = ""
+    unmatched_str = ""
+    matched_pairs = resDict["per_sample"][img_id]["pairs"]
+
+    discovered_gts = []
+    discovered_dets = []
+    undiscovered_gts = []
+    undiscovered_dets = []
+
+    for pair in matched_pairs:
+        gt_id = pair["gt"]
+        det_id = pair["det"]
+        matched_str += (
+            f"MATCHED GT {gt_id} and MATCHED PRED {det_id} IoU:"
+            f" {round(resDict['per_sample'][img_id]['iouMat'][gt_id][det_id], 2)}\n"
+        )
+        discovered_gts.append(gt_id)
+        discovered_dets.append(det_id)
+
+    for gt_id, det_id in zip(
+        resDict["per_sample"][img_id]["gtDontCare"],
+        resDict["per_sample"][img_id]["detDontCare"],
+    ):
+        ignore_str += (
+            f"IGNORED GT {gt_id} and IGNORED PRED {det_id} IoU:"
+            f" {round(resDict['per_sample'][img_id]['iouMat'][gt_id][det_id], 2)}\n"
+        )
+        discovered_gts.append(gt_id)
+        discovered_dets.append(det_id)
+
+    for gt_id in range(len(resDict["per_sample"][img_id]["gtPolPoints"])):
+        if gt_id not in discovered_gts:
+            undiscovered_gts.append(gt_id)
+
+    for det_id in range(len(resDict["per_sample"][img_id]["detPolPoints"])):
+        if det_id not in discovered_dets:
+            undiscovered_dets.append(det_id)
+
+    for gt_id in undiscovered_gts:
+        for det_id in undiscovered_dets:
+            unmatched_str += (
+                f"UNMATCHED GT {gt_id} and UNMATCHED PRED {det_id} IoU:"
+                f" {round(resDict['per_sample'][img_id]['iouMat'][gt_id][det_id], 2)}\n"
+            )
+
+    return matched_str, ignore_str, unmatched_str
