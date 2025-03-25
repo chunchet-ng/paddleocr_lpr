@@ -8,7 +8,7 @@ Global:
   # evaluation is run every 5000 iterations after the 4000th iteration
   eval_batch_step: [4000, 5000]
   cal_metric_during_train: False
-  pretrained_model: /content/drive/My Drive/Colab Notebooks/Chapter 5/License_Plate_Recognition/ppocr_east/det_mv3_east_v2.0_train/best_accuracy
+  pretrained_model: /notebooks/paddleocr_lpr/License_Plate_Recognition/ppocr_east/det_mv3_east_v2.0_train/best_accuracy
   checkpoints: 
   save_inference_dir:
   use_visualdl: False
@@ -58,9 +58,9 @@ Metric:
 Train:
   dataset:
     name: SimpleDataSet
-    data_dir: /content/drive/My Drive/CCPD2019/train
+    data_dir: /notebooks/paddleocr_lpr/CCPD2019/train
     label_file_list:
-      - /content/drive/My Drive/CCPD2019/train.txt
+      - /notebooks/paddleocr_lpr/CCPD2019/train.txt
     ratio_list: [1.0]
     transforms:
       - DecodeImage: # load image
@@ -83,9 +83,9 @@ Train:
 Eval:
   dataset:
     name: SimpleDataSet
-    data_dir: /content/drive/My Drive/CCPD2019/val
+    data_dir: /notebooks/paddleocr_lpr/CCPD2019/val
     label_file_list:
-      - /content/drive/My Drive/CCPD2019/val.txt
+      - /notebooks/paddleocr_lpr/CCPD2019/val.txt
     transforms:
       - DecodeImage: # load image
           img_mode: BGR
