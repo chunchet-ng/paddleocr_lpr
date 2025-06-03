@@ -1,6 +1,7 @@
 # Introduction 
 This repo contains the demo code for License Plate Recognition using PaddleOCR.
 [Paperspace](https://www.paperspace.com/) is used for this demonstration.
+Do note that the LPR_Setup.ipynb is depreciated and for reference only.
 
 # Paperspace Environment Setup
 1.	Start a jupyter notebook on paperspace
@@ -9,9 +10,7 @@ This repo contains the demo code for License Plate Recognition using PaddleOCR.
 4.	Run "bash conda.sh"
 5.	Close all terminals and open a new one, make sure that conda base environment is activated
 6.	Run "bash setup.sh"
-7.	Run "conda activate tibame"
-8.	Run "pip install -r requirements.txt"
-9.	Make sure to select tibame as the kernel for all notebooks
+7.	Make sure to select paddleocr_lpr env as the kernel for all notebooks
 
 # Code Structure/Explanation
 1.	[HMean Calculation for Text Detection & Spotting Tasks](/Detection_Evaluation/HMean.ipynb)
