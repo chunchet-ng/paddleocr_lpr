@@ -2,7 +2,7 @@
 This repo contains the demo code for License Plate Recognition using PaddleOCR.
 [Paperspace](https://www.paperspace.com/) is used for this demonstration.
 
-# Conda Environment Setup
+# Paperspace Environment Setup
 1.	Start a jupyter notebook on paperspace
 2.	Git clone the repo by running "git clone https://github.com/chunchet-ng/paddleocr_lpr.git"
 3.	Enter the paddleocr_lpr folder by running "cd paddleocr_lpr"
