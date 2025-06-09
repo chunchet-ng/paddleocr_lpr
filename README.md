@@ -52,7 +52,7 @@ bash setup.sh
 - [`License_Plate_Recognition/EAST_CRNN_LPR.ipynb`](./License_Plate_Recognition/EAST_CRNN_LPR.ipynb)  
   *Apply text detection (EAST), recognition (CRNN), and full license plate detection and recognition on CCPD 2019.*
 
-> **Note:**  
+> [!NOTE] 
 > Please run the `CCPD_2019` notebook before starting with `EAST_CRNN_LPR` on your first use.
 
 ---
@@ -84,7 +84,7 @@ bash setup.sh
 
 ## 🙏 Acknowledgements
 
-- **[@nwjun](https://github.com/nwjun):**  
+- **[@nwjun](https://github.com/nwjun):**
   Special thanks for improving the notebooks and providing valuable feedback! 💪😇👍
 
 ---
